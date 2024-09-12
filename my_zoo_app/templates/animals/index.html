@@ -12,12 +12,13 @@
 <section class="card-container">
   {% for animal in animals %}
     <div class="card">
+      <a href="{% url 'animal-detail' animal.id %}">
       <div class="card-content">
         <div class="card-img-container">
           <img
             class="card-img"
             src="{% static 'images/zebra.jpg' %}"
-            alt="A skater boy cat"
+            alt="A zebra"
           />
         </div>
         <h2 class="card-title">{{ animal.name }}</h2>
