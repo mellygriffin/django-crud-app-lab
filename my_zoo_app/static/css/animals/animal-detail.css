@@ -6,7 +6,12 @@
     justify-content: center;
   }
   
-  .animal-img {
+  /* .animal-img {
+    width: 75%;
+    max-width: 350px;
+  } */
+
+  #animal-photo {
     width: 75%;
     max-width: 350px;
   }
