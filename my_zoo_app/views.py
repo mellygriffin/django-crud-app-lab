@@ -10,6 +10,7 @@ def about(request):
     return render(request, 'about.html')
 
 def animal_index(request):
+    animals = Animal.objects.all()
     return render(request, 'animals/index.html', {'animals': animals})
 
 def animal_detail(request, animal_id):
