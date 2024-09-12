@@ -15,14 +15,15 @@
   <body>
     <header>
       <div class="header-logo-container">
-        <a href="">
+        <a href="/">
           <img src="{% static 'images/tiny_logo.png' %}" alt="The Zoo Typhoon Logo" />
         </a>
       </div>
       <nav>
         <ul>
-            <li><a href="/animals">All Animals</a></li>
-          <li><a href="/about">About</a></li>
+          <li><a href="{% url 'animal-index' %}">All Animals</a></li>
+          <li><a href="{% url 'animal-create' %}">Add an Animal</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
         </ul>
       </nav>
     </header>

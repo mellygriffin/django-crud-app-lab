@@ -1,0 +1,15 @@
+<div class="animal-details">
+    <h1>{{ animal.name }}</h1>
+    {% if animal.age > 0 %}
+      <h2>A {{ animal.age }} year old {{ animal.species }}</h2>
+    {% else %}
+      <h2>A {{ animal.species }} kitten.</h2>
+    {% endif %}
+    <p>{{ animal.description }}</p>
+  
+    <div class="animal-actions">
+      <a href="{% url 'animal-update' animal.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'animal-delete' animal.id %}" class="btn danger">Delete</a>
+    </div>
+  </div>
+  

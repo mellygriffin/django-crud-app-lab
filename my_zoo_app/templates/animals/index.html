@@ -28,9 +28,10 @@
         {% if animal.age > 0 %}
         <p>A {{ animal.age }} year old {{ animal.breed }}</p>
         {% else %}
-        <p>A {{ animal.breed }} kitten.</p>
+        <p>A newborn {{ animal.breed }}.</p>
         {% endif %}
         <p><small>{{ animal.description }}</small></p>
+        <p class="con-status"><large>{{ animal.status }}</large></p>
       </div>
     </div>
   {% endfor %}
