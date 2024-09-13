@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Animal
+from django.views.generic import ListView, DetailView
+from .models import Animal, Donation
 from .forms import ConservationForm
 
 # Define the home view function
@@ -42,4 +43,21 @@ class AnimalDelete(DeleteView):
     model = Animal
     success_url = '/animals/'
 
+class DonationCreate(CreateView):
+    model = Donation
+    fields = '__all__'
+
+class DonationList(ListView):
+    model = Donation
+
+class DonationDetail(DetailView):
+    model = Donation
+
+class DonationUpdate(UpdateView):
+    model = Donation
+    fields = ['amount']
+
+class DonationDelete(DeleteView):
+    model = Donation
+    success_url = '/donations/'
 

@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/donations/donation-detail.css' %}" />
+{% endblock %} 
+{% block content %}
+
+<div class="card" style="border-color: {{ green }}">
+  <div class="card-bg" style="background-color: {{ green }}"></div>
+  <div class="card-content">
+    <h2>{{ donation.donor }}'s Donation</h2>
+    <p>They gave ${{ donation.amount }} to support the zoo!</p>
+  </div>
+</div>
+<a href="{% url 'donation-update' donation.id %}" class="btn warn">Edit</a>
+<a href="{% url 'donation-delete' donation.id %}" class="btn danger">Delete</a>
+
+{% endblock %}

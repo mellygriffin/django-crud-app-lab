@@ -9,6 +9,16 @@ CONSERVATION = (
 )
 
 # Create your models here.
+class Donation(models.Model):
+    donor = models.CharField(max_length=50)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.donor
+    
+    def get_absolute_url(self):
+        return reverse('donation-detail', kwargs={'pk': self.id})
+
 class Animal(models.Model):
     name = models.CharField(max_length=100)
     species = models.CharField(max_length=100)
@@ -37,3 +47,4 @@ class Conservation(models.Model):
     
     class Meta:
         ordering = ['-date']
+

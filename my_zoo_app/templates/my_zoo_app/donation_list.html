@@ -1,0 +1,27 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/toys/donation-index.css' %}" />
+{% endblock %} 
+{% block content %}
+
+<section class="page-header">
+  <h1>All Donations</h1>
+  <img src="{% static 'images/giving.png' %}" alt="A hand with a gold coin in it" />
+</section>
+
+<section class="card-container">
+  {% for donation in donation_list %}
+    <div class="card" style="border-color: {{ green }}">
+      <div class="card-bg" style="background-color: {{ green }}"></div>
+      <a href="{% url 'donation-detail' donation.id %}">
+        <div class="card-content">
+          <h2>{{ donation.donor }}</h2>
+          <p>${{ donation.amount }}</p>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</section>
+
+{% endblock %}

@@ -49,23 +49,28 @@
         <button type="submit" class="btn submit">Add Status</button>
       </form>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for conservation in animal.conservation_set.all %}
-            <tr>
-              <td>{{conservation.date}}</td>
-              <td>{{conservation.get_status_display}}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </section>
+      <h3>Conservation Status</h3>
+{% if animal.conservation_set.all.count %}
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for conservation in animal.conservation_set.all %}
+      <tr>
+        <td>{{conservation.date}}</td>
+        <td>{{conservation.get_status_display}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="subsection-content">
+    <p>⚠️ {{animal.name}} has not been updated!</p>
   </div>
+{% endif %}
   
   {% endblock %}

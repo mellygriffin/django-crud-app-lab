@@ -14,4 +14,9 @@ urlpatterns = [
         views.add_status,
         name='add-status'
     ),
+    path('donations/create/', views.DonationCreate.as_view(), name='donation-create'),
+    path('donations/<int:pk>/', views.DonationDetail.as_view(), name='donation-detail'),
+    path('donations/', views.DonationList.as_view(), name='donation-index'),
+    path('donations/<int:pk>/update/', views.DonationUpdate.as_view(), name='donation-update'),
+    path('donations/<int:pk>/delete', views.DonationDelete.as_view(), name='donation-delete'),
 ]

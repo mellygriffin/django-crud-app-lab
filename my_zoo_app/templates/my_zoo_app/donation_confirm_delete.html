@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+
+<div class="page-header">
+  <h1>Remove Donation?</h1>
+  <img src="{% static 'images/giving.png' %}" alt="A hand with a gold coin" />
+</div>
+<h2>Are you sure you want to remove ${{ object.amount }}?</h2>
+
+<form action="" method="post" class="form">
+  {% csrf_token %}
+  <a href="{% url 'donation-detail' donation.id %}" class="btn secondary"> Cancel </a>
+  <button type="submit" class="btn danger">Yes - Remove!</button>
+</form>
+
+{% endblock %}
