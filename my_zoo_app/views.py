@@ -24,7 +24,7 @@ class AnimalCreate(CreateView):
 
 class AnimalUpdate(UpdateView):
     model = Animal
-    fields = ['species', 'description', 'age', 'status']
+    fields = ['species', 'description', 'age']
 
 class AnimalDelete(DeleteView):
     model = Animal

@@ -20,11 +20,17 @@ main {
   }
   
   .logo-container {
-    max-width: 375px;
+    max-width: 500px;
+    max-height: 600px;
   }
   
   .animal-container {
     width: 80%;
+  }
+
+  img {
+    border: 10px solid white;
+    box-shadow: 5px;
   }
   
   .login {
