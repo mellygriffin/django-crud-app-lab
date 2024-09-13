@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Animal
+from .forms import ConservationForm
 
 # Define the home view function
 def home(request):
@@ -15,7 +16,18 @@ def animal_index(request):
 
 def animal_detail(request, animal_id):
     animal = Animal.objects.get(id=animal_id)
-    return render(request, 'animals/detail.html', {'animal': animal})
+    conservation_form = ConservationForm()
+    return render(request, 'animals/detail.html', {
+        'animal': animal, 'conservation_form': conservation_form
+        })
+
+def add_status(request, animal_id):
+    form = ConservationForm(request.POST)
+    if form.is_valid():
+        new_status = form.save(commit=False)
+        new_status.animal_id = animal_id
+        new_status.save()
+    return redirect('animal-detail', animal_id=animal_id)
 
 class AnimalCreate(CreateView):
     model = Animal

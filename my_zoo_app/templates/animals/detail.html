@@ -22,4 +22,50 @@
     </div>
   </div>
 
+  <div class="conservation-donations-container">
+    <section class="conservation">
+      <div class="subsection-title">
+        <h2>Conservation Status</h2>
+        <img
+          src="{% static 'images/elephant_icon.png' %}"
+          alt="an icon of an elephant"
+        />
+        <img src="{% static 'images/leopard_icon.png' %}" alt="An icon of a leopard" />
+        <img
+          src="{% static 'images/crocodile_icon.png' %}"
+          alt="An icon of a crocodile"
+        />
+      </div>
+
+      <h3>Add Conservation Status</h3>
+      <form
+          action="{% url 'add-status' animal.id %}"
+          method="post"
+          class="subsection-content"
+          autocomplete="off"
+        >
+        {% csrf_token %} 
+        {{ conservation_form.as_p }}
+        <button type="submit" class="btn submit">Add Status</button>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for conservation in animal.conservation_set.all %}
+            <tr>
+              <td>{{conservation.date}}</td>
+              <td>{{conservation.get_status_display}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </div>
+  
   {% endblock %}

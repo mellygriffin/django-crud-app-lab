@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
-CONSERVATION_STATUS = (
+CONSERVATION = (
     ('LR', 'Low Risk'),
     ('VR', 'Vulnerable'),
     ('ED', 'Endangered'),
@@ -23,8 +23,17 @@ class Animal(models.Model):
     
     
 class Conservation(models.Model):
+    date = models.DateField('Date Changed')
     status=models.CharField(
         max_length=2,
-        choices=CONSERVATION_STATUS,
-        default=CONSERVATION_STATUS[0][0]
+        choices=CONSERVATION,
+        default=CONSERVATION[0][0]
     )
+
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.get_status_display()} on {self.date}"
+    
+    class Meta:
+        ordering = ['-date']
