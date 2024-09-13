@@ -1,10 +1,12 @@
 
 {% extends 'base.html' %} 
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
 {% block content %}
 <h1>About Zoo Typhoon</h1>
 <hr />
 <p class="page-content">
-  Keep track of all your critters!
+<img id="zoo-photo" src="{% static 'images/zoo-photo.png' %}" width= 500px alt="Graphic of people at a zoo" />
+  Zoo Typhoon is a way for you to keep track of your own digital zoo and the donations from visitors to each of your treasured animals! Log each one by name, age and even their conservation status so you can be up to date on saving the species!
 </p>
 {% endblock %}
