@@ -3,18 +3,24 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Animal, Donation
 from .forms import ConservationForm
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-# Define the home view function
-def home(request):
-    return render(request, 'home.html')
+class Home(LoginView):
+    template_name = 'home.html'
 
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def animal_index(request):
-    animals = Animal.objects.all()
+    animals = Animal.objects.filter(user=request.user)
     return render(request, 'animals/index.html', {'animals': animals})
 
+@login_required
 def animal_detail(request, animal_id):
     animal = Animal.objects.get(id=animal_id)
     conservation_form = ConservationForm()
@@ -22,6 +28,7 @@ def animal_detail(request, animal_id):
         'animal': animal, 'conservation_form': conservation_form
         })
 
+@login_required
 def add_status(request, animal_id):
     form = ConservationForm(request.POST)
     if form.is_valid():
@@ -30,34 +37,54 @@ def add_status(request, animal_id):
         new_status.save()
     return redirect('animal-detail', animal_id=animal_id)
 
-class AnimalCreate(CreateView):
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('animal-index')
+        else:
+            error_message = 'Invalid sign up - try again'
+    form = UserCreationForm()
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'signup.html', context)
+
+
+
+class AnimalCreate(LoginRequiredMixin, CreateView):
     model = Animal
     fields = '__all__'
     success_url = '/animals/'
 
-class AnimalUpdate(UpdateView):
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class AnimalUpdate(LoginRequiredMixin, UpdateView):
     model = Animal
     fields = ['species', 'description', 'age']
 
-class AnimalDelete(DeleteView):
+class AnimalDelete(LoginRequiredMixin, DeleteView):
     model = Animal
     success_url = '/animals/'
 
-class DonationCreate(CreateView):
+class DonationCreate(LoginRequiredMixin, CreateView):
     model = Donation
     fields = '__all__'
 
-class DonationList(ListView):
+class DonationList(LoginRequiredMixin, ListView):
     model = Donation
 
-class DonationDetail(DetailView):
+class DonationDetail(LoginRequiredMixin, DetailView):
     model = Donation
 
-class DonationUpdate(UpdateView):
+class DonationUpdate(LoginRequiredMixin, UpdateView):
     model = Donation
     fields = ['amount']
 
-class DonationDelete(DeleteView):
+class DonationDelete(LoginRequiredMixin, DeleteView):
     model = Donation
     success_url = '/donations/'
 
